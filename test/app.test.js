@@ -29,7 +29,7 @@ test('GET /api/health ตอบ status ok พร้อม version และ runt
   const res = await fetch(`${baseUrl}/api/health`);
   assert.equal(res.status, 200);
   const data = await res.json();
-  assert.equal(data.status, 'ok');
+  assert.equal(data.status, 'okay');
   assert.equal(data.version, '0.0.0-test');
   assert.equal(data.runtime, 'test');
 });
