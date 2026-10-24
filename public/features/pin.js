@@ -1,6 +1,23 @@
-// โมดูล C — ปักหมุดประกาศ  ·  branch: feature/pin
-// หน้าเว็บของฟีเจอร์ — ดูเครื่องมือที่ใช้ได้ใน ctx ที่หัวไฟล์ public/app.js
-
+// โมดูล C — ปักหมุดประกาศ  ·  branch: feature/pin  (เฉลย)
 export function init(ctx) {
-  // TODO(feature/pin): เพิ่มปุ่ม/ช่องกรอก/การแสดงผลของฟีเจอร์ที่นี่
+  // ประกาศที่ปักหมุดขึ้นก่อนเสมอ
+  ctx.addSorter((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)));
+
+  ctx.addItemHook((item, { title, actions }) => {
+    if (item.pinned) {
+      const badge = document.createElement('span');
+      badge.className = 'badge';
+      badge.textContent = '📌 ปักหมุด';
+      title.prepend(badge);
+    }
+    const button = document.createElement('button');
+    button.className = 'link';
+    button.textContent = item.pinned ? 'เลิกปักหมุด' : 'ปักหมุด';
+    button.onclick = async () => {
+      const res = await ctx.api(`/api/announcements/${item.id}/pin`, { method: 'POST' });
+      if (!res.ok) return ctx.notify(res.data.error);
+      ctx.reload();
+    };
+    actions.prepend(button);
+  });
 }
