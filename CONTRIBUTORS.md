@@ -9,4 +9,4 @@
 ## รายชื่อ
 
 - instructor — ผู้ดูแล repo (ทุกฟีเจอร์)
-- somchai — Backend developer (ฟีเจอร์ B ค้นหาประกาศ)
+- somchai — Backend developer (ฟีเจอร์ B ค้นหาประกาศ · feature/search)
