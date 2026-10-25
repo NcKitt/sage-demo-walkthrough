@@ -1,10 +1,18 @@
-// โมดูล D — หมวดหมู่ประกาศ  ·  branch: feature/category
-// API ที่ต้องทำ: GET /api/categories · PUT /api/announcements/:id/category
-// รายละเอียด: การ์ดงาน (Issue) "D — หมวดหมู่ประกาศ" บน Board ของทีม
-//
-// router = express.Router() ที่ mount ไว้ที่ /api แล้ว (เขียน path โดยไม่ต้องมี /api นำหน้า)
-// store  = ตัวเก็บข้อมูล: list() · get(id) · create({title, body}) · update(id, patch) · remove(id)
+// โมดูล D — หมวดหมู่ประกาศ  ·  branch: feature/category  (เฉลย)
+export const CATEGORIES = ['ทั่วไป', 'ด่วน', 'กิจกรรม'];
 
 export function register(router, { store }) {
-  // TODO(feature/category): เพิ่ม route ของฟีเจอร์ที่นี่
+  router.get('/categories', (req, res) => {
+    res.json(CATEGORIES);
+  });
+
+  router.put('/announcements/:id/category', (req, res) => {
+    const id = Number(req.params.id);
+    if (!store.get(id)) return res.status(404).json({ error: 'ไม่พบประกาศ' });
+    const category = req.body?.category;
+    if (!CATEGORIES.includes(category)) {
+      return res.status(400).json({ error: `category ต้องเป็นหนึ่งใน: ${CATEGORIES.join(', ')}` });
+    }
+    res.json(store.update(id, { category }));
+  });
 }
