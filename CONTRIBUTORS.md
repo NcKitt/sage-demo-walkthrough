@@ -10,4 +10,4 @@
 
 - instructor — ผู้ดูแล repo (ทุกฟีเจอร์)
 - somchai — Backend developer (ฟีเจอร์ B ค้นหาประกาศ · feature/search)
-- somsri — Frontend developer (feature/category)
+- somsri — Frontend developer (ฟีเจอร์ D หมวดหมู่ · feature/category)
